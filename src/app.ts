@@ -6,6 +6,10 @@ import { Config } from './shared/config/config';
 import { errorHandler } from './shared/middleware/errorHandler';
 import logger from './shared/utils/logger';
 
+// Import routes
+import chatRoutes from './modules/chat/routes';
+import subscriptionRoutes from './modules/subscriptions/routes';
+
 const app: Application = express();
 
 // Middleware
@@ -23,15 +27,23 @@ app.get('/health', (_req: Request, res: Response) => {
   });
 });
 
-// API Routes (will be added in next phase)
+// API Routes
+app.use('/api/chat', chatRoutes);
+app.use('/api/subscriptions', subscriptionRoutes);
+
+// Root endpoint
 app.get('/', (_req: Request, res: Response) => {
   res.json({
     message: 'GGI Backend Challenge API - Ahmed Murtaza',
     version: '1.0.0',
     endpoints: {
-      health: '/health',
-      chat: '/api/chat',
-      subscriptions: '/api/subscriptions',
+      health: 'GET /health',
+      chat: 'POST /api/chat',
+      chatHistory: 'GET /api/chat/history/:userId',
+      createSubscription: 'POST /api/subscriptions',
+      getSubscriptions: 'GET /api/subscriptions/:userId',
+      cancelSubscription: 'PATCH /api/subscriptions/:id/cancel',
+      toggleAutoRenew: 'PATCH /api/subscriptions/:id/toggle-autorenew',
     },
   });
 });
@@ -59,6 +71,8 @@ const startServer = async () => {
       logger.info(`🚀 Server running on port ${Config.PORT}`);
       logger.info(`📍 Environment: ${Config.NODE_ENV}`);
       logger.info(`🔗 Health check: http://localhost:${Config.PORT}/health`);
+      logger.info(`💬 Chat API: http://localhost:${Config.PORT}/api/chat`);
+      logger.info(`💳 Subscriptions API: http://localhost:${Config.PORT}/api/subscriptions`);
     });
   } catch (error) {
     logger.error('❌ Failed to start server:', error);
