@@ -73,9 +73,7 @@ export class SubscriptionRepository {
     }
 
     // Sort by remaining messages (descending) - use the one with most quota
-    validSubscriptions.sort(
-      (a, b) => b.getRemainingMessages() - a.getRemainingMessages()
-    );
+    validSubscriptions.sort((a, b) => b.getRemainingMessages() - a.getRemainingMessages());
 
     return validSubscriptions[0];
   }

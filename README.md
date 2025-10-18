@@ -478,7 +478,7 @@ MIT License - feel free to use this project for learning!
 
 ## 🙏 Acknowledgments
 
-- GGI (Grow Great International) for the challenge
+- GGI (Golden Gate Innovations) for the challenge
 - Clean Architecture principles by Robert C. Martin
 - Domain-Driven Design by Eric Evans
 

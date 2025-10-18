@@ -2,7 +2,12 @@ import { SubscriptionService } from '../../src/modules/subscriptions/services/Su
 import { SubscriptionRepository } from '../../src/modules/subscriptions/repositories/SubscriptionRepository';
 import { UserRepository } from '../../src/shared/repositories/UserRepository';
 import { User } from '../../src/shared/entities/User';
-import { Subscription, SubscriptionTier, BillingCycle, SubscriptionStatus } from '../../src/modules/subscriptions/domain/entities/Subscription';
+import {
+  Subscription,
+  SubscriptionTier,
+  BillingCycle,
+  SubscriptionStatus,
+} from '../../src/modules/subscriptions/domain/entities/Subscription';
 import { NotFoundError, ValidationError } from '../../src/shared/errors/AppError';
 
 jest.mock('../../src/modules/subscriptions/repositories/SubscriptionRepository');
@@ -129,9 +134,9 @@ describe('SubscriptionService', () => {
       subscriptionRepository.findByIdAndUserId = jest.fn().mockResolvedValue(mockSubscription);
 
       // Act & Assert
-      await expect(
-        subscriptionService.cancelSubscription('sub-123', 'user-123')
-      ).rejects.toThrow(ValidationError);
+      await expect(subscriptionService.cancelSubscription('sub-123', 'user-123')).rejects.toThrow(
+        ValidationError
+      );
     });
   });
 

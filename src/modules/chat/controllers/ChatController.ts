@@ -16,11 +16,7 @@ export class ChatController {
     const subscriptionRepository = new SubscriptionRepository();
     const userRepository = new UserRepository();
 
-    this.chatService = new ChatService(
-      openAIService,
-      subscriptionRepository,
-      userRepository
-    );
+    this.chatService = new ChatService(openAIService, subscriptionRepository, userRepository);
     this.chatRepository = chatRepository;
   }
 

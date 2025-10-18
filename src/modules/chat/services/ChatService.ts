@@ -42,9 +42,8 @@ export class ChatService implements IChatService {
     }
 
     // Step 3: Generate AI response
-    const { answer, tokensUsed, responseTime } = await this.openAIService.generateResponse(
-      question
-    );
+    const { answer, tokensUsed, responseTime } =
+      await this.openAIService.generateResponse(question);
 
     // Step 4: Quota management logic - THE HEART OF THE SYSTEM!
     let usedFreeQuota = false;

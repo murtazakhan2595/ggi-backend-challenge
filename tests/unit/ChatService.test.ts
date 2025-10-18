@@ -16,9 +16,11 @@ jest.mock('../../src/modules/subscriptions/repositories/SubscriptionRepository')
 jest.mock('../../src/shared/repositories/UserRepository');
 jest.mock('../../src/database/data-source', () => ({
   AppDataSource: {
-    transaction: jest.fn((callback) => callback({
-      save: jest.fn((entity) => Promise.resolve(entity)),
-    })),
+    transaction: jest.fn((callback) =>
+      callback({
+        save: jest.fn((entity) => Promise.resolve(entity)),
+      })
+    ),
   },
 }));
 
@@ -37,11 +39,7 @@ describe('ChatService', () => {
     subscriptionRepository = new SubscriptionRepository() as jest.Mocked<SubscriptionRepository>;
     userRepository = new UserRepository() as jest.Mocked<UserRepository>;
 
-    chatService = new ChatService(
-      openAIService,
-      subscriptionRepository,
-      userRepository
-    );
+    chatService = new ChatService(openAIService, subscriptionRepository, userRepository);
   });
 
   describe('processMessage', () => {
@@ -112,7 +110,9 @@ describe('ChatService', () => {
       mockSubscription.deductMessage = jest.fn();
 
       userRepository.findById = jest.fn().mockResolvedValue(mockUser);
-      subscriptionRepository.findAvailableSubscription = jest.fn().mockResolvedValue(mockSubscription);
+      subscriptionRepository.findAvailableSubscription = jest
+        .fn()
+        .mockResolvedValue(mockSubscription);
 
       // Act
       const result = await chatService.processMessage(userId, question);
@@ -138,7 +138,9 @@ describe('ChatService', () => {
       subscriptionRepository.findAvailableSubscription = jest.fn().mockResolvedValue(null);
 
       // Act & Assert
-      await expect(chatService.processMessage(userId, question)).rejects.toThrow(QuotaExceededError);
+      await expect(chatService.processMessage(userId, question)).rejects.toThrow(
+        QuotaExceededError
+      );
     });
 
     it('should throw NotFoundError when user not found', async () => {

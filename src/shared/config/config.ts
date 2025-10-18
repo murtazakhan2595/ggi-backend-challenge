@@ -19,9 +19,7 @@ export class Config {
   static readonly OPENAI_MOCK_MAX_DELAY = parseInt(process.env.OPENAI_MOCK_MAX_DELAY || '2000');
 
   // Free Tier Settings
-  static readonly FREE_MESSAGES_PER_MONTH = parseInt(
-    process.env.FREE_MESSAGES_PER_MONTH || '3'
-  );
+  static readonly FREE_MESSAGES_PER_MONTH = parseInt(process.env.FREE_MESSAGES_PER_MONTH || '3');
 
   // Payment Simulation
   static readonly PAYMENT_FAILURE_RATE = parseFloat(process.env.PAYMENT_FAILURE_RATE || '0.2');

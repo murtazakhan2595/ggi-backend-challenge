@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+} from 'typeorm';
 
 @Entity('users')
 export class User {
@@ -49,10 +56,7 @@ export class User {
     const now = new Date();
 
     // Reset if we're in a new month
-    return (
-      now.getMonth() !== lastReset.getMonth() ||
-      now.getFullYear() !== lastReset.getFullYear()
-    );
+    return now.getMonth() !== lastReset.getMonth() || now.getFullYear() !== lastReset.getFullYear();
   }
 
   /**
