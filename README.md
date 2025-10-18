@@ -45,26 +45,14 @@ A production-ready backend system featuring AI chat capabilities with intelligen
 ---
 
 ## 🏗️ Architecture
-```
-┌─────────────────────────────────────────┐
-│         Controllers (HTTP Layer)         │
-│  - Handle HTTP requests/responses        │
-│  - Request validation                    │
-├─────────────────────────────────────────┤
-│         Services (Business Logic)        │
-│  - Core business rules                   │
-│  - Quota management                      │
-│  - Transaction handling                  │
-├─────────────────────────────────────────┤
-│      Repositories (Data Access)          │
-│  - Database operations                   │
-│  - Query abstraction                     │
-├─────────────────────────────────────────┤
-│         Domain (Entities)                │
-│  - User, ChatMessage, Subscription       │
-│  - Business methods                      │
-└─────────────────────────────────────────┘
-```
+
+### Clean Architecture Overview
+
+![Clean Architecture Overview](docs/images/architecture-overview.png)
+
+### Module Structure
+
+![Module Structure](docs/images/module-structure.png)
 
 **Key Principles:**
 - Separation of Concerns
@@ -195,6 +183,14 @@ curl -X POST http://localhost:3000/api/subscriptions \
 
 ## 🧪 Testing
 
+### Testing Architecture
+
+![Testing Architecture](docs/images/testing-architecture.png)
+
+### Test Coverage Overview
+
+![Test Coverage](docs/images/test-coverage.png)
+
 ### Run Tests
 ```bash
 # All tests
@@ -222,6 +218,14 @@ npm run test:watch
 ---
 
 ## 🗄️ Database Schema
+
+### Entity Relationship Diagram
+
+![Database Schema](docs/images/database-schema.png)
+
+### Database Tables Overview
+
+![Database Tables](docs/images/database-tables.png)
 
 ### Users Table
 ```sql
@@ -275,6 +279,18 @@ docker exec -it ggi-postgres psql -U postgres -d ggi_backend_test
 ---
 
 ## 💡 Business Logic
+
+### Quota Management Flow
+
+![Quota Management Flow](docs/images/quota-management-flow.png)
+
+### Subscription Lifecycle
+
+![Subscription Lifecycle](docs/images/subscription-lifecycle.png)
+
+### Auto-Renewal Process
+
+![Auto-Renewal Process](docs/images/auto-renewal-process.png)
 
 ### Quota Management
 
@@ -343,6 +359,14 @@ ggi-backend-challenge/
 ---
 
 ## 🐳 Docker Services
+
+### Service Architecture
+
+![Docker Architecture](docs/images/docker-architecture.png)
+
+### API Request Flow
+
+![API Request Flow](docs/images/api-request-flow.png)
 
 ### Running Services
 ```bash
