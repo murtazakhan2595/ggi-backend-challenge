@@ -18,7 +18,6 @@ export class ChatController {
 
     this.chatService = new ChatService(
       openAIService,
-      chatRepository,
       subscriptionRepository,
       userRepository
     );

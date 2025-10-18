@@ -1,7 +1,6 @@
 import { AppDataSource } from '../../../database/data-source';
 import { IChatService } from '../domain/interfaces/IChatService';
 import { IOpenAIService } from '../domain/interfaces/IOpenAIService';
-import { ChatRepository } from '../repositories/ChatRepository';
 import { SubscriptionRepository } from '../../subscriptions/repositories/SubscriptionRepository';
 import { UserRepository } from '../../../shared/repositories/UserRepository';
 import { ChatMessage } from '../domain/entities/ChatMessage';
@@ -11,7 +10,6 @@ import logger from '../../../shared/utils/logger';
 export class ChatService implements IChatService {
   constructor(
     private openAIService: IOpenAIService,
-    private chatRepository: ChatRepository,
     private subscriptionRepository: SubscriptionRepository,
     private userRepository: UserRepository
   ) {}
@@ -89,7 +87,7 @@ export class ChatService implements IChatService {
       chatMessage.tokensUsed = tokensUsed;
       chatMessage.responseTime = responseTime;
       chatMessage.usedFreeQuota = usedFreeQuota;
-      chatMessage.subscriptionId = subscriptionId;
+      chatMessage.subscriptionId = subscriptionId || null;
 
       await manager.save(ChatMessage, chatMessage);
     });

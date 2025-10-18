@@ -1,0 +1,240 @@
+{
+  "info": {
+    "name": "GGI Backend Challenge - Ahmed Murtaza",
+    "description": "AI Chat & Subscription Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Chat",
+      "item": [
+        {
+          "name": "Send Message (Free Quota)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{testUserId}}\",\n  \"question\": \"What are the best practices for TypeScript development?\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/chat",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "chat"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Send Message (Subscription)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{premiumUserId}}\",\n  \"question\": \"Explain Clean Architecture in detail\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/chat",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "chat"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Chat History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/chat/history/{{testUserId}}?limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "chat", "history", "{{testUserId}}"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Subscriptions",
+      "item": [
+        {
+          "name": "Create BASIC Subscription",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{testUserId}}\",\n  \"tier\": \"BASIC\",\n  \"billingCycle\": \"MONTHLY\",\n  \"autoRenew\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/subscriptions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "subscriptions"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create PRO Subscription",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{testUserId}}\",\n  \"tier\": \"PRO\",\n  \"billingCycle\": \"YEARLY\",\n  \"autoRenew\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/subscriptions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "subscriptions"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create ENTERPRISE Subscription",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{testUserId}}\",\n  \"tier\": \"ENTERPRISE\",\n  \"billingCycle\": \"MONTHLY\",\n  \"autoRenew\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/subscriptions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "subscriptions"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Subscriptions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/subscriptions/{{testUserId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "subscriptions", "{{testUserId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Subscription",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{testUserId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/subscriptions/{{subscriptionId}}/cancel",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "subscriptions", "{{subscriptionId}}", "cancel"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Toggle Auto-Renew",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{testUserId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/subscriptions/{{subscriptionId}}/toggle-autorenew",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "subscriptions", "{{subscriptionId}}", "toggle-autorenew"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "testUserId",
+      "value": "REPLACE_WITH_TEST_USER_ID",
+      "type": "string"
+    },
+    {
+      "key": "premiumUserId",
+      "value": "REPLACE_WITH_PREMIUM_USER_ID",
+      "type": "string"
+    },
+    {
+      "key": "subscriptionId",
+      "value": "REPLACE_WITH_SUBSCRIPTION_ID",
+      "type": "string"
+    }
+  ]
+}

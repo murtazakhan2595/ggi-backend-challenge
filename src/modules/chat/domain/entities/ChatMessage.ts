@@ -28,7 +28,7 @@ export class ChatMessage {
   usedFreeQuota: boolean;
 
   @Column({ type: 'uuid', nullable: true })
-  subscriptionId: string;
+  subscriptionId: string | null;
 
   @CreateDateColumn()
   createdAt: Date;

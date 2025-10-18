@@ -10,9 +10,47 @@ const router = Router();
 const subscriptionController = new SubscriptionController();
 
 /**
- * @route   POST /api/subscriptions
- * @desc    Create a new subscription
- * @access  Public (should be protected in production)
+ * @openapi
+ * /api/subscriptions:
+ *   post:
+ *     tags:
+ *       - Subscriptions
+ *     summary: Create a new subscription
+ *     description: Create a new subscription for a user with specified tier and billing cycle
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CreateSubscriptionRequest'
+ *     responses:
+ *       201:
+ *         description: Subscription created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     subscription:
+ *                       $ref: '#/components/schemas/Subscription'
+ *       400:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       404:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router.post(
   '/',
@@ -21,9 +59,41 @@ router.post(
 );
 
 /**
- * @route   GET /api/subscriptions/:userId
- * @desc    Get all subscriptions for a user
- * @access  Public (should be protected in production)
+ * @openapi
+ * /api/subscriptions/{userId}:
+ *   get:
+ *     tags:
+ *       - Subscriptions
+ *     summary: Get user subscriptions
+ *     description: Retrieve all subscriptions for a specific user
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: User ID
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     subscriptions:
+ *                       type: array
+ *                       items:
+ *                         $ref: '#/components/schemas/Subscription'
+ *                     count:
+ *                       type: integer
  */
 router.get(
   '/:userId',
@@ -31,9 +101,42 @@ router.get(
 );
 
 /**
- * @route   PATCH /api/subscriptions/:id/cancel
- * @desc    Cancel a subscription
- * @access  Public (should be protected in production)
+ * @openapi
+ * /api/subscriptions/{id}/cancel:
+ *   patch:
+ *     tags:
+ *       - Subscriptions
+ *     summary: Cancel subscription
+ *     description: Cancel an active subscription
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: Subscription ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - userId
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 format: uuid
+ *     responses:
+ *       200:
+ *         description: Subscription cancelled successfully
+ *       404:
+ *         description: Subscription not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router.patch(
   '/:id/cancel',
@@ -42,9 +145,42 @@ router.patch(
 );
 
 /**
- * @route   PATCH /api/subscriptions/:id/toggle-autorenew
- * @desc    Toggle auto-renew
- * @access  Public (should be protected in production)
+ * @openapi
+ * /api/subscriptions/{id}/toggle-autorenew:
+ *   patch:
+ *     tags:
+ *       - Subscriptions
+ *     summary: Toggle auto-renew
+ *     description: Toggle auto-renew on or off for a subscription
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: Subscription ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - userId
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 format: uuid
+ *     responses:
+ *       200:
+ *         description: Auto-renew toggled successfully
+ *       404:
+ *         description: Subscription not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router.patch(
   '/:id/toggle-autorenew',

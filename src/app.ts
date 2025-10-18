@@ -6,6 +6,9 @@ import { Config } from './shared/config/config';
 import { errorHandler } from './shared/middleware/errorHandler';
 import logger from './shared/utils/logger';
 
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './shared/config/swagger';
+
 // Import routes
 import chatRoutes from './modules/chat/routes';
 import subscriptionRoutes from './modules/subscriptions/routes';
@@ -26,6 +29,8 @@ app.get('/health', (_req: Request, res: Response) => {
     environment: Config.NODE_ENV,
   });
 });
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // API Routes
 app.use('/api/chat', chatRoutes);

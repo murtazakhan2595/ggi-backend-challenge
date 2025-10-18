@@ -59,7 +59,7 @@ export class Subscription {
   endDate: Date;
 
   @Column({ type: 'date', nullable: true })
-  renewalDate: Date;
+  renewalDate: Date | null;
 
   @CreateDateColumn()
   createdAt: Date;
@@ -143,7 +143,7 @@ export class Subscription {
    */
   renew(): void {
     const currentEnd = new Date(this.endDate);
-    
+
     if (this.billingCycle === BillingCycle.MONTHLY) {
       currentEnd.setMonth(currentEnd.getMonth() + 1);
     } else {
