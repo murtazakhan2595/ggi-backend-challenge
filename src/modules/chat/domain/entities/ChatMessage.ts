@@ -6,7 +6,6 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { User } from '../../../shared/entities/User';
 
 @Entity('chat_messages')
 export class ChatMessage {
@@ -34,9 +33,9 @@ export class ChatMessage {
   @CreateDateColumn()
   createdAt: Date;
 
-  @ManyToOne(() => User, (user) => user.chatMessages)
+  @ManyToOne('User', 'chatMessages')
   @JoinColumn({ name: 'userId' })
-  user: User;
+  user: any;
 
   @Column()
   userId: string;

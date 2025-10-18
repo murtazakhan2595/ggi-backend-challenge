@@ -7,7 +7,6 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { User } from '../../../shared/entities/User';
 
 export enum SubscriptionTier {
   BASIC = 'BASIC',
@@ -68,9 +67,9 @@ export class Subscription {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => User, (user) => user.subscriptions)
+  @ManyToOne('User', 'subscriptions')
   @JoinColumn({ name: 'userId' })
-  user: User;
+  user: any;
 
   @Column()
   userId: string;

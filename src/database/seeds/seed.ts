@@ -1,6 +1,10 @@
 import { AppDataSource } from '../data-source';
 import { User } from '../../shared/entities/User';
-import { Subscription, SubscriptionTier, BillingCycle } from '../../modules/subscriptions/domain/entities/Subscription';
+import {
+  Subscription,
+  SubscriptionTier,
+  BillingCycle,
+} from '../../modules/subscriptions/domain/entities/Subscription';
 import logger from '../../shared/utils/logger';
 
 async function seed() {
@@ -12,9 +16,8 @@ async function seed() {
     const userRepository = AppDataSource.getRepository(User);
     const subscriptionRepository = AppDataSource.getRepository(Subscription);
 
-    // Clear existing data
-    await subscriptionRepository.delete({});
-    await userRepository.delete({});
+    // Clear existing data with CASCADE (handles foreign keys)
+    await AppDataSource.query('TRUNCATE TABLE chat_messages, subscriptions, users CASCADE');
     logger.info('Cleared existing data');
 
     // Create test users

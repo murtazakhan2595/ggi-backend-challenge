@@ -1,6 +1,4 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
-import { ChatMessage } from '../../modules/chat/domain/entities/ChatMessage';
-import { Subscription } from '../../modules/subscriptions/domain/entities/Subscription';
 
 @Entity('users')
 export class User {
@@ -25,11 +23,11 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => ChatMessage, (message) => message.user)
-  chatMessages: ChatMessage[];
+  @OneToMany('ChatMessage', 'user')
+  chatMessages: any[];
 
-  @OneToMany(() => Subscription, (subscription) => subscription.user)
-  subscriptions: Subscription[];
+  @OneToMany('Subscription', 'user')
+  subscriptions: any[];
 
   /**
    * Reset free messages quota (called on 1st of each month)
